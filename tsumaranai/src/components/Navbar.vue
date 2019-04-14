@@ -15,6 +15,24 @@
 
       <v-spacer></v-spacer>
 
+      <v-menu offset-y>
+        <template v-slot:activator="{ on }">
+          <v-btn flat dark round
+                 color="green darken-3"
+                 v-on="on">
+             <v-icon left>expand_more</v-icon>
+             <span>Menu</span>
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-tile v-for="link in links"
+                       :key="link.text"
+                       router :to="link.route">
+            <v-list-tile-title>{{ link.text }}</v-list-tile-title>
+          </v-list-tile>
+        </v-list>
+      </v-menu>
+
       <v-btn round flat
              color="amber darken-2">
         <span>Sign Out</span>
@@ -24,8 +42,27 @@
     </v-toolbar>
 
     <v-navigation-drawer app
+                         temporary
                          class="indigo darken-3"
                          v-model="drawer">
+
+      <v-layout column align-center>
+        <v-flex class="mt-5">
+          <v-avatar
+            size="100"
+            class="green darken-3">
+            <img src="/profiles/Free Pig.png">
+          </v-avatar>
+        </v-flex>
+
+        <p class="mt-1 subheading">
+          Ralgr
+        </p>
+
+        <v-flex class="mt-4 mb-3">
+          <Popup/>
+        </v-flex>
+      </v-layout>
 
       <v-list>
 
@@ -51,8 +88,14 @@
 </template>
 
 <script>
+import Popup from './Popup'
+
 export default {
   name: 'Name',
+
+  components: {
+    Popup
+  },
 
   data() {
     return {
