@@ -1,6 +1,16 @@
 <template lang="html">
   <nav>
 
+    <v-snackbar
+      v-model="snackbar"
+      :timeout="4000"
+      top
+      color="amber"
+    >
+      <span>New project added.</span>
+      <v-btn flat color="primary" @click.native="snackbar = false">Close</v-btn>
+    </v-snackbar>
+
     <v-toolbar app flat
                class="grey darken-4">
 
@@ -60,7 +70,7 @@
         </p>
 
         <v-flex class="mt-4 mb-3">
-          <Popup/>
+          <Popup @project-added="snackbar = true"/>
         </v-flex>
       </v-layout>
 
@@ -68,7 +78,8 @@
 
         <v-list-tile v-for="link in links"
                      :key="link.text"
-                     router :to="link.route">
+                     router :to="link.route"
+                     @click="drawer = false">
 
           <v-list-tile-action>
             <v-icon>{{ link.icon }}</v-icon>
@@ -104,7 +115,9 @@ export default {
         {icon: 'dashboard', text: 'Dashboard', route: '/'},
         {icon: 'folder', text: 'My Projects', route: '/projects'},
         {icon: 'person', text: 'Team', route: '/team'}
-      ]
+      ],
+      snackbar: false,
+      drawer: false
     }
   }
 }
